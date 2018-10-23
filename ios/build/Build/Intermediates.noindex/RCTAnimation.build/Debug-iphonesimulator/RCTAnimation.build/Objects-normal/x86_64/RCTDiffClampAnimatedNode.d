@@ -1,0 +1,9 @@
+dependencies: \
+  /Users/nicfisher/projects/saturday/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTDiffClampAnimatedNode.m \
+  /Users/nicfisher/projects/saturday/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTDiffClampAnimatedNode.h \
+  /Users/nicfisher/projects/saturday/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTValueAnimatedNode.h \
+  /Users/nicfisher/projects/saturday/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTAnimatedNode.h \
+  /Users/nicfisher/projects/saturday/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTLog.h \
+  /Users/nicfisher/projects/saturday/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
+  /Users/nicfisher/projects/saturday/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
+  /Users/nicfisher/projects/saturday/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h
