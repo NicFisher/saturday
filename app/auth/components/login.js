@@ -10,7 +10,6 @@ class Login extends Component {
     const {loginFormValues, login} = this.props;
     if(isValid) {
       login(loginFormValues);
-      console.log("registerFormValues: ", loginFormValues);
     }
   };
 

@@ -24,3 +24,4 @@ export const reducer = (state = initialState, action) => {
 };
 
 export const getAuthenticated = state => state.auth.authenticated;
+export const getAuthenticationToken = state => state.auth.authenticationToken;

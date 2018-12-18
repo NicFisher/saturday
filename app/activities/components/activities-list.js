@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import _ from 'lodash';
+import moment from 'moment'
 
 const capitalize = (value) =>  _.capitalize(value);
 
@@ -10,17 +11,16 @@ class ActivitiesList extends Component {
   renderItem = ({item}) => (
     <TouchableOpacity style={styles.activityCard}>
       <View style={styles.row}>
-        <Text style={styles.cardDate}>{item.scheduledDate}</Text>
+        <Text style={styles.cardDate}>{moment(item.scheduledDate).format("dddd Do MMM")}</Text>
         <TouchableOpacity style={styles.closeIcon} onPress={() => this.props.removeActivity(item.id)}>
           <Icon size={28} name="ios-close" style={{color: '#252C3F'}} />
         </TouchableOpacity>
       </View>
-      <Text style={styles.cardType}>{capitalize(item.type)}</Text>
+      <Text style={styles.cardType}>{capitalize(item.kind)}</Text>
       <Text style={styles.cardInfo}>{item.title}</Text>
       <Text style={styles.cardInfo}>{item.duration}</Text>
     </TouchableOpacity>
   );
-
 
   render() {
     return (

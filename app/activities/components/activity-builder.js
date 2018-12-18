@@ -1,6 +1,7 @@
 import * as Animatable from 'react-native-animatable';
+import * as activity from '../actions/activity.action'
 import React, {Component} from 'react'
-import {View, TextInput, Text, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 import HeaderWithSubmit from '../../common/components/header-with-submit';
 import {Field, reduxForm, submit, getFormValues} from "redux-form";
 import {connect} from 'react-redux';
@@ -24,7 +25,8 @@ class ActivityBuilder extends Component {
   }
 
   submitHandler = () => {
-    console.log('Form Values: ', this.props.activitiesFormValues);
+    const {createActivity, activitiesFormValues} = this.props;
+    createActivity(activitiesFormValues);
   };
 
   render() {
@@ -40,10 +42,16 @@ class ActivityBuilder extends Component {
             placeholder="Title"
           />
           <Field
-            name="type"
+            name="kind"
             autoCapitalize="sentences"
             component={renderInputField}
-            placeholder="Type"
+            placeholder="Kind"
+          />
+          <Field
+            name="status"
+            autoCapitalize="sentences"
+            component={renderInputField}
+            placeholder="Status"
           />
           <Field
             name="duration"
@@ -77,7 +85,6 @@ class ActivityBuilder extends Component {
               </View>
             </Animatable.View>
           </Modal>
-
         </View>
       </View>
     )
@@ -89,6 +96,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  createActivity: activity.createActivity,
   submitForm: submit,
 };
 

@@ -4,11 +4,11 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware, compose} from 'redux';
 import rootReducer from './app/store/AppReducer';
 import thunk from 'redux-thunk';
-import {AxiosRequestInterceptor} from "./app/axios/interceptors";
 import {persistStore, persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import LoadingView from "./app/common/components/loading-view";
+import {configureAxiosErrorResponseInterceptor} from "./app/interceptors";
 
 const persistConfig = {
   key: 'root',
@@ -27,7 +27,7 @@ const store = createStore(
 
 export const persistor = persistStore(store);
 
-// AxiosRequestInterceptor(store);
+configureAxiosErrorResponseInterceptor(store);
 
 export default class App extends React.Component {
   render() {

@@ -9,7 +9,7 @@ export const reducer = (state = initialState, action) => {
   switch(action.type) {
     case activities.ADD_ENTITIES:
       return {...state, entities: state.entities.merge(action.payload)};
-    case activities.ADD_ENTITIY:
+    case activities.ADD_ENTITY:
       const {id} = action.payload;
       const updatedEntity = {...state.entities.get(id), ...action.payload};
       return {...state, entities: state.entities.set(id, updatedEntity)};
