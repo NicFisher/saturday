@@ -2,6 +2,7 @@ import * as user from '../../user/actions/user.actions';
 import {loginQuery} from '../queries/auth.queries';
 import axios from 'axios';
 import {baseUrl} from "../../axios/helper";
+import {loginAlert} from "../helpers/login-alert";
 
 export const AUTHENICATED = "[AUTH] Authenticated";
 export const UNAUTHENTICATED = "[AUTH] Unauthenticated";
@@ -9,6 +10,8 @@ export const START_LOADING = "[AUTH] Start Loading";
 export const STOP_LOADING = "[AUTH] Stop Loading";
 export const UPDATE_AUTHENTICATION_TOKEN = "[AUTH] Update Authentication Token";
 export const LOGOUT = "[AUTH] Logout";
+
+// Actions
 
 export const authenticated = () => ({
   type: AUTHENICATED
@@ -31,6 +34,12 @@ export const updateAuthenticationToken = (payload) => ({
   payload
 });
 
+export const logout = () => ({
+  type: LOGOUT
+});
+
+// Epics - equivalent
+
 export const login = (payload) => {
   return dispatch => {
     dispatch(startLoading());
@@ -46,12 +55,9 @@ export const login = (payload) => {
         dispatch(stopLoading());
         dispatch(authenticated());
       })
-      .catch(error => {
+      .catch(() => {
+        loginAlert();
         dispatch(stopLoading())
       })
   };
 };
-
-export const logout = () => ({
-  type: LOGOUT
-});

@@ -6,70 +6,10 @@ import {connect} from 'react-redux';
 import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
 import ActivitiesList from "../components/activities-list";
 import Icon from "react-native-vector-icons/Ionicons";
-import uuidv4 from 'uuid/v4';
-import {Map} from 'immutable';
-
-const activitiesData = [
-  {
-    id: uuidv4(),
-    type: 'run',
-    createdAt: '09-09-18',
-    scheduledDate: 'Tuesday 9th September',
-    duration: '12 km',
-    status: 'active',
-    title: 'Steady run',
-    notes: 'Heart rate 150bpm',
-    data: {
-      additionalNotes: 'Heart rate 150bpm'
-    }
-  },
-  {
-    id: uuidv4(),
-    type: 'stretch',
-    createdAt: '09-09-18',
-    scheduledDate: 'Wednesday 10th September',
-    duration: '20 minutes',
-    status: 'active',
-    title: 'Lower Body Stretching',
-    data: {
-      additionalNotes: 'Lower body stretching'
-    }
-  },
-  {
-    id: uuidv4(),
-    type: 'gym',
-    createdAt: '09-09-18',
-    scheduledDate: 'Thursday 11th September',
-    duration: '20 minutes',
-    status: 'active',
-    title: 'Chest and tris',
-    data: {
-      additionalNotes: 'Bench press'
-    }
-  },
-  {
-    id: uuidv4(),
-    type: 'run',
-    createdAt: '09-09-18',
-    scheduledDate: 'Friday 13th September',
-    duration: '12 km',
-    status: 'active',
-    title: 'Easy run',
-    data: {
-      additionalNotes: 'Heart rate 150bpm'
-    }
-  },
-];
-
-const activitiesMap = activitiesData.reduce(
-  (activities, activity) => {
-    return activities.set(activity.id, activity);
-  }, Map()
-);
 
 class ActivitiesPage extends Component {
   componentDidMount() {
-    this.props.addActivities(activitiesMap);
+    this.props.fetchActivities();
   }
   render() {
     const {userDetails: {firstName}} = this.props;
@@ -95,7 +35,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  addActivities: activityActions.addEntities,
+  fetchActivities: activityActions.fetch,
   removeActivity: activityActions.removeEntity
 };
 

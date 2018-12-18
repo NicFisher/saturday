@@ -12,6 +12,11 @@ const HeaderWithSubmit = ({navigation, onSubmit}) => {
           <Icon name='ios-arrow-back' size={26} style={{color: '#252C3F', paddingRight: 5}} />
         </TouchableOpacity>
       </Left>
+      <Right>
+        <TouchableOpacity transparent onPress={() => onSubmit()} style={{padding: Platform.OS === 'ios' ? 10 : 0}} >
+          <Text>Done</Text>
+        </TouchableOpacity>
+      </Right>
     </Header>
   )
 };
