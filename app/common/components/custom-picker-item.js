@@ -4,10 +4,10 @@ import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 
 const CustomPickerItem = ({item, selectedValue, select}) => {
-  const {item: {name, id}} = item;
-  const selected = selectedValue === id;
+  const {item: {name}} = item;
+  const selected = selectedValue === name;
   return (
-    <TouchableOpacity onPress={() => select(id)} style={styles.itemContainer}>
+    <TouchableOpacity onPress={() => select(name)} style={styles.itemContainer}>
       <Text style={styles.itemText}>{name}</Text>
       {selected && <Icon name="ios-checkmark" style={styles.icon}/>}
     </TouchableOpacity>

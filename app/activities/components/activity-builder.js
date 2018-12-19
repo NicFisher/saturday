@@ -1,19 +1,17 @@
-import * as Animatable from 'react-native-animatable';
 import * as activity from '../actions/activity.action'
 import React, {Component} from 'react'
-import {View, Text, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import HeaderWithSubmit from '../../common/components/header-with-submit';
-import {Field, reduxForm, submit, getFormValues} from "redux-form";
+import {change, Field, getFormValues, reduxForm, submit} from "redux-form";
 import {connect} from 'react-redux';
 import Modal from 'react-native-modal';
-import Icon from "react-native-vector-icons/Ionicons";
-import CustomPickerItem from "../../common/components/custom-picker-item";
-import {renderInputField} from "../../common/form/input-field";
+import {renderInputField, renderPickerModal} from "../../common/form/input-field";
+import ActivityKindModal from "./activity-kind-modal";
 
-const activityTypes = [
-  {id: '1', name: 'run'},
-  {id: '2', name: 'gym'},
-  {id: '3', name: 'stretch'},
+const activityKinds = [
+  {id: '1', name: 'Run'},
+  {id: '2', name: 'Gym'},
+  {id: '3', name: 'Stretch'},
 ];
 
 class ActivityBuilder extends Component {
@@ -24,17 +22,25 @@ class ActivityBuilder extends Component {
     }
   }
 
-  submitHandler = () => {
+  _selectActivityKind = value => {
+    const {changeForm} = this.props;
+    changeForm('activity', 'kind', value);
+    this.setState({isVisible: false})
+  };
+
+  _submitHandler = () => {
     const {createActivity, activitiesFormValues} = this.props;
     createActivity(activitiesFormValues);
   };
 
   render() {
+    const {activitiesFormValues} = this.props;
+    const activityKind = activitiesFormValues ? activitiesFormValues.kind : null;
     return (
       <View style={styles.container}>
-        <HeaderWithSubmit onSubmit={() => this.submitHandler()}/>
+        <HeaderWithSubmit onSubmit={() => this._submitHandler()}/>
         <View style={styles.formContainer}>
-          <Text style={{color: '#252C3F', fontSize: 34, fontWeight: '800', marginBottom: 30}}>Add Activity</Text>
+          <Text style={styles.headerText}>Add Activity</Text>
           <Field
             name="title"
             autoCapitalize="sentences"
@@ -44,14 +50,9 @@ class ActivityBuilder extends Component {
           <Field
             name="kind"
             autoCapitalize="sentences"
-            component={renderInputField}
+            component={renderPickerModal}
             placeholder="Kind"
-          />
-          <Field
-            name="status"
-            autoCapitalize="sentences"
-            component={renderInputField}
-            placeholder="Status"
+            onPress={() => this.setState({isVisible: true})}
           />
           <Field
             name="duration"
@@ -73,17 +74,11 @@ class ActivityBuilder extends Component {
           />
           <Modal onBackdropPress={() => this.setState({isVisible: false})}
                  isVisible={this.state.isVisible} style={styles.modal}>
-            <Animatable.View transition="height" style={styles.animatedView}>
-              <TouchableOpacity style={styles.closeIconContainer} onPress={() => this.setState({isVisible: false})}>
-                <Icon name="md-close-circle" style={styles.closeIcon} />
-              </TouchableOpacity>
-              <View style={styles.content}>
-                <FlatList data={activityTypes}
-                          keyExtractor={item => item.id}
-                          renderItem={(item) => <CustomPickerItem item={item} />}
-                />
-              </View>
-            </Animatable.View>
+            <ActivityKindModal activityKinds={activityKinds}
+                               selectActivity={this._selectActivityKind}
+                               closeModal={() => this.setState({isVisible: false})}
+                               selectedValue={activityKind}
+            />
           </Modal>
         </View>
       </View>
@@ -98,6 +93,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   createActivity: activity.createActivity,
   submitForm: submit,
+  changeForm: change,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({form: 'activity'})(ActivityBuilder));
@@ -112,29 +108,14 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     marginTop: 20,
   },
-  animatedView: {
-    height: 200,
-    width: '100%',
-    margin: 0,
-    backgroundColor: 'white',
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
-    padding: 15
-  },
   modal: {
     margin: 0,
     justifyContent: "flex-end"
   },
-  content: {
-    marginBottom: 15
-  },
-  closeIconContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-  closeIcon: {
-    color: '#909090',
-    paddingLeft: 10,
-    fontSize: 28
+  headerText: {
+    color: '#252C3F',
+    fontSize: 34,
+    fontWeight: '800',
+    marginBottom: 30
   }
 });
