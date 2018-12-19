@@ -13,7 +13,7 @@ import {configureAxiosErrorResponseInterceptor} from "./app/interceptors";
 const persistConfig = {
   key: 'root',
   storage: storage,
-  blacklist: ['activities']
+  blacklist: ['activities', 'form']
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
