@@ -67,10 +67,11 @@ class ActivityBuilder extends Component {
             placeholder="Scheduled Date"
           />
           <Field
-            name="additionalInformation"
+            name="description"
             autoCapitalize="sentences"
+            multiline={true}
             component={renderInputField}
-            placeholder="Additional Information"
+            placeholder="Description"
           />
           <Modal onBackdropPress={() => this.setState({isVisible: false})}
                  isVisible={this.state.isVisible} style={styles.modal}>
