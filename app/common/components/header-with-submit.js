@@ -14,7 +14,7 @@ const HeaderWithSubmit = ({navigation, onSubmit}) => {
       </Left>
       <Right>
         <TouchableOpacity transparent onPress={() => onSubmit()} style={{padding: Platform.OS === 'ios' ? 10 : 0}} >
-          <Text>Done</Text>
+          <Text style={{fontSize: 15}}>Done</Text>
         </TouchableOpacity>
       </Right>
     </Header>

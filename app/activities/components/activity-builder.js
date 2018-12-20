@@ -5,7 +5,7 @@ import HeaderWithSubmit from '../../common/components/header-with-submit';
 import {change, Field, getFormValues, reduxForm, submit} from "redux-form";
 import {connect} from 'react-redux';
 import Modal from 'react-native-modal';
-import {renderInputField, renderPickerModal} from "../../common/form/input-field";
+import {renderDatePicker, renderInputField, renderPickerModal} from "../../common/form/input-field";
 import ActivityKindModal from "./activity-kind-modal";
 
 const activityKinds = [
@@ -63,7 +63,7 @@ class ActivityBuilder extends Component {
           <Field
             name="scheduledDate"
             autoCapitalize="sentences"
-            component={renderInputField}
+            component={renderDatePicker}
             placeholder="Scheduled Date"
           />
           <Field
