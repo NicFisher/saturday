@@ -1,4 +1,4 @@
-import * as auth from '../../auth/actions/auth.actions';
+import * as auth from '../../auth/actions/auth.action';
 import _ from 'lodash';
 import axios from "axios/index";
 import {baseUrl} from "../../axios/helper";

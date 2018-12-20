@@ -1,4 +1,4 @@
-import * as auth from '../actions/auth.actions';
+import * as auth from '../actions/auth.action';
 
 const initialState = {
   authenticated: false,

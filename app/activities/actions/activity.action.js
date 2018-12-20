@@ -1,3 +1,4 @@
+import * as navigation from "../../navigation/actions/navigation.action";
 import axios from "axios";
 import {baseUrl} from "../../axios/helper";
 import {createActivityQuery, fetchActivityQuery} from "../queries/activities.query";
@@ -36,6 +37,7 @@ export const createActivity = payload => {
       .then(response => {
         const {createActivity} = response.data.data;
         dispatch(addEntity(createActivity));
+        dispatch(navigation.navigateBackSwitch())
         // dispatch(stopLoading());
       })
       .catch(error => {

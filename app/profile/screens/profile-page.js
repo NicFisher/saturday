@@ -1,4 +1,4 @@
-import * as auth from '../../auth/actions/auth.actions';
+import * as auth from '../../auth/actions/auth.action';
 import React, {Component} from "react";
 import {View, Text, TouchableOpacity} from "react-native";
 import {connect} from 'react-redux';

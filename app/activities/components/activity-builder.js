@@ -1,4 +1,6 @@
 import * as activity from '../actions/activity.action'
+import * as fromNavigation from '../../navigation/reducers/navigation.reducer';
+import * as navigation from '../../navigation/actions/navigation.action';
 import React, {Component} from 'react'
 import {StyleSheet, Text, View} from 'react-native';
 import HeaderWithSubmit from '../../common/components/header-with-submit';
@@ -7,6 +9,7 @@ import {connect} from 'react-redux';
 import Modal from 'react-native-modal';
 import {renderDatePicker, renderInputField, renderPickerModal} from "../../common/form/input-field";
 import ActivityKindModal from "./activity-kind-modal";
+import {withNavigation} from "react-navigation";
 
 const activityKinds = [
   {id: '1', name: 'Run'},
@@ -21,6 +24,15 @@ class ActivityBuilder extends Component {
       isVisible: false
     }
   }
+
+  componentDidUpdate(prevProps) {
+    const {navigateBack, navigation, navigationBackSwitch} = this.props;
+    if(navigateBack && prevProps.navigateBack !== navigateBack) {
+      navigation.goBack();
+      navigationBackSwitch();
+    }
+  }
+
 
   _selectActivityKind = value => {
     const {changeForm} = this.props;
@@ -89,15 +101,18 @@ class ActivityBuilder extends Component {
 
 const mapStateToProps = state => ({
   activitiesFormValues: getFormValues('activity')(state),
+  navigateBack: fromNavigation.getNavigateBack(state)
 });
 
 const mapDispatchToProps = {
   createActivity: activity.createActivity,
   submitForm: submit,
   changeForm: change,
+  navigationBackSwitch: navigation.navigateBackSwitch
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({form: 'activity'})(ActivityBuilder));
+const connectedActivityBuilder = connect(mapStateToProps, mapDispatchToProps)(reduxForm({form: 'activity'})(ActivityBuilder));
+export default withNavigation(connectedActivityBuilder);
 
 const styles = StyleSheet.create({
   container: {

@@ -1,7 +1,7 @@
 import * as fromAuth from '../../auth/reducers/auth.reducer';
 import React, {Component} from 'react';
 import {ActivityIndicator} from 'react-native';
-import {createRootNavigator} from "../../navigation/tab-navigator";
+import {createRootNavigator} from "../../navigation/common/tab-navigator";
 import {connect} from 'react-redux';
 import axios from "axios";
 
