@@ -22,4 +22,5 @@ export const reducer = (state = initialState, action) => {
 
 // export const getState = state => state.activities;
 export const getEntitiesArray = state => state.activities.entities
+  .sortBy(entity => entity.scheduledDate)
   .toArray();
