@@ -33,7 +33,6 @@ class ActivityBuilder extends Component {
     }
   }
 
-
   _selectActivityKind = value => {
     const {changeForm} = this.props;
     changeForm('activity', 'kind', value);

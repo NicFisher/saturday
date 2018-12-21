@@ -57,7 +57,7 @@ const customStyles = {
   dateText: {
     fontSize: 15,
     color: '#252C3F',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   placeholderText: {
     fontSize: 15,
@@ -70,15 +70,14 @@ const customStyles = {
     height: 40,
     marginTop: 0,
     paddingTop: 0,
-    marginBottom: 10,
     borderWidth: 0,
     alignItems: 'flex-start',
     justifyContent: 'center',
+    borderBottomColor: '#aaa',
+    borderBottomWidth: 0.5,
   },
   dateTouchBody: {
     height: 40,
-    borderBottomColor: '#aaa',
-    borderBottomWidth: 0.5,
     width: '100%',
     alignItems: 'flex-start',
     justifyContent: 'center',
