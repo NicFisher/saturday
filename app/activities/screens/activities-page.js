@@ -36,7 +36,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   fetchActivities: activityActions.fetch,
-  removeActivity: activityActions.removeEntity
+  removeActivity: activityActions.deleteEntity
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActivitiesPage);

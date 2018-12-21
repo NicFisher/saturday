@@ -7,7 +7,6 @@ import moment from 'moment'
 const capitalize = (value) =>  _.capitalize(value);
 
 class ActivitiesList extends Component {
-
   renderItem = ({item}) => (
     <TouchableOpacity style={styles.activityCard}>
       <View style={styles.row}>

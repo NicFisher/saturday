@@ -12,6 +12,14 @@ export const createActivityQuery = () => (
   }`
 );
 
+export const deleteActivityQuery = () => (
+  `mutation($id: ID!) {
+    deleteActivity(id: $id) {
+      id
+    }
+  }`
+);
+
 export const fetchActivityQuery = () => (
   `query{
     viewer {
