@@ -24,7 +24,7 @@ export default ActivityKindModal;
 
 const styles = StyleSheet.create({
   animatedView: {
-    height: 200,
+    height: 250,
     width: '100%',
     margin: 0,
     backgroundColor: 'white',

@@ -9,7 +9,7 @@ const HeaderWithSubmit = ({navigation, onSubmit}) => {
     <Header style={{backgroundColor: '#fff', borderBottomColor: '#252C3F'}}>
       <Left>
         <TouchableOpacity transparent onPress={() => navigation.goBack()} style={{padding: Platform.OS === 'ios' ? 10 : 0}}>
-          <Icon name='ios-arrow-back' size={26} style={{color: '#252C3F', paddingRight: 5}} />
+          <Icon name='md-close-circle' size={26} style={{color: '#aaa', paddingRight: 5}} />
         </TouchableOpacity>
       </Left>
       <Right>
