@@ -1,11 +1,11 @@
 import React from 'react';
 import Icon from "react-native-vector-icons/Ionicons";
 import {createBottomTabNavigator, createStackNavigator, createSwitchNavigator} from 'react-navigation';
-import CalendarPage from "../calendar/screens/calendar-page";
-import ProfilePage from "../profile/screens/profile-page";
+import CalendarPage from "../../calendar/screens/calendar-page";
+import ProfilePage from "../../profile/screens/profile-page";
 import {ActivitiesStack} from "./navigation";
-import WelcomePage from "../auth/screens/welcome-page";
-import RegisterLoginPage from "../auth/screens/register-login-page";
+import WelcomePage from "../../auth/screens/welcome-page";
+import RegisterLoginPage from "../../auth/screens/register-login-page";
 
 export const TabNavigation = createBottomTabNavigator({
   Activities: {
@@ -31,7 +31,8 @@ export const TabNavigation = createBottomTabNavigator({
     navigationOptions: ({navigation}) => {
       return {
         tabBarOptions: {
-          activeTintColor: '#000',
+          activeTintColor: '#252C3F',
+          inactiveTintColor: "#CCC",
           inactiveBackgroundColor: '#fff',
           activeBackgroundColor: '#fff',
         }

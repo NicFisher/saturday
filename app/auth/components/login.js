@@ -1,4 +1,4 @@
-import * as auth from '../../auth/actions/auth.actions';
+import * as auth from '../actions/auth.action';
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {Field, getFormValues, reduxForm, submit, isValid} from "redux-form";
