@@ -1,11 +1,12 @@
 import * as navigation from "../../navigation/actions/navigation.action";
 import axios from "axios";
 import {baseUrl} from "../../axios/helper";
-import {createActivityQuery, fetchActivityQuery} from "../queries/activities.query";
+import {createActivityQuery, deleteActivityQuery, fetchActivityQuery} from "../queries/activities.query";
 import {mapNodesFromJson} from "../../common/mappers";
 
 export const ADD_ENTITY = "[ACTIVITY] Add Entity";
 export const ADD_ENTITIES = "[ACTIVITY] Add Entities";
+export const DELETE_ENTITY = "[ACTIVITY] Delete Entity";
 export const REMOVE_ENTITY = "[ACTIVITY] Remove Entity";
 
 // Actions
@@ -45,6 +46,23 @@ export const createActivity = payload => {
         // dispatch(stopLoading())
       })
   };
+};
+
+export const deleteEntity = payload => {
+  return dispatch => {
+    // dispatch(startLoading());
+    axios.post(baseUrl, {
+      query: deleteActivityQuery(),
+      variables: JSON.stringify({id: payload})
+    })
+      .then(response => {
+        const {id} = response.data.data.deleteActivity;
+        dispatch(removeEntity(id))
+      })
+      .catch(error => {
+        console.log('Error: ', error)
+      })
+  }
 };
 
 export const fetch = () => {
