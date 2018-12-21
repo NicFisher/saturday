@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {Animated, View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Keyboard} from 'react-native';
 import Register from "../components/register";
 import Login from "../components/login";
 
@@ -7,7 +7,8 @@ class RegisterLoginPage extends Component {
   constructor(props){
     super(props);
     this.state = {
-      selectedScreen: 'Register'
+      selectedScreen: 'Register',
+      pagePaddingBottom: new Animated.Value(100)
     }
   }
 
@@ -17,6 +18,9 @@ class RegisterLoginPage extends Component {
   };
 
   componentDidMount() {
+    // keyboard event listeners
+    this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
+    this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
     const selectedScreen = this.props.navigation.getParam('selectedScreen');
     if(selectedScreen !== this.state.selectedScreen) {
       this.setState({selectedScreen: selectedScreen})
@@ -27,22 +31,42 @@ class RegisterLoginPage extends Component {
     return screen === this.state.selectedScreen;
   };
 
+  componentWillUnmount() {
+    // removes keyboard event listeners
+    this.keyboardWillShowSub.remove();
+    this.keyboardWillHideSub.remove();
+  }
+
+  keyboardWillShow = () => {
+    Animated.timing( this.state.pagePaddingBottom, { toValue: 5, duration: 200}).start();
+  };
+
+  keyboardWillHide = () => {
+    Animated.timing( this.state.pagePaddingBottom, { toValue: 100, duration: 200}).start();
+  };
+
   render() {
+    const {pagePaddingBottom} = this.state;
     const Component = this.Components[this.state.selectedScreen];
     return (
-      <View style={styles.container}>
-        <View style={styles.titleContainer}>
-          <TouchableOpacity onPress={() => this.setState({selectedScreen: 'Register'})}>
-            <Text style={[styles.headerText, {color: (this._activeScreen('Register') ? '#252C3F' : '#ddd')}]}>Register</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.setState({selectedScreen: 'Login'})}>
-            <Text style={[styles.headerText, {color: (this._activeScreen('Login') ? '#252C3F' : '#ddd')}]}>Login</Text>
-          </TouchableOpacity>
+      <KeyboardAvoidingView
+        style={{flex: 1}}
+        behavior="padding"
+      >
+        <View style={styles.container}>
+          <View style={styles.titleContainer}>
+            <TouchableOpacity onPress={() => this.setState({selectedScreen: 'Register'})}>
+              <Text style={[styles.headerText, {color: (this._activeScreen('Register') ? '#252C3F' : '#ddd')}]}>Register</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.setState({selectedScreen: 'Login'})}>
+              <Text style={[styles.headerText, {color: (this._activeScreen('Login') ? '#252C3F' : '#ddd')}]}>Login</Text>
+            </TouchableOpacity>
+          </View>
+          <Animated.View style={[styles.buttonContainer, {paddingBottom: pagePaddingBottom}]}>
+            <Component />
+          </Animated.View>
         </View>
-        <View style={styles.buttonContainer}>
-          <Component />
-        </View>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
@@ -73,7 +97,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    paddingBottom: 100,
   },
   loginButton: {
     width: '80%',
@@ -93,4 +116,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10
   }
-})
+});
