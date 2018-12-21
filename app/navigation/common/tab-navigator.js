@@ -35,6 +35,9 @@ export const TabNavigation = createBottomTabNavigator({
           inactiveTintColor: "#CCC",
           inactiveBackgroundColor: '#fff',
           activeBackgroundColor: '#fff',
+          style: {
+            backgroundColor: '#fff'
+          }
         }
       }
     }
