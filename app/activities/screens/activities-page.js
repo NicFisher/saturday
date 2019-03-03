@@ -11,19 +11,27 @@ class ActivitiesPage extends Component {
   componentDidMount() {
     this.props.fetchActivities();
   }
+
+  _openActivity = (id) => {
+    const {selectActivity, navigation} = this.props;
+    selectActivity(id);
+    navigation.navigate('ActivityBuilder')
+  };
   render() {
-    const {userDetails: {firstName}} = this.props;
+    const {userDetails: {firstName}, navigation} = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.row}>
           <Text style={styles.headerText}>Hello {firstName}.</Text>
-          <TouchableOpacity style={styles.addActivityButton} onPress={() => this.props.navigation.navigate('ActivityBuilder')}>
+          <TouchableOpacity style={styles.addActivityButton} onPress={() => navigation.navigate('ActivityBuilder')}>
             <Icon size={36} name="ios-add" style={{color: '#fff'}}></Icon>
           </TouchableOpacity>
         </View>
         <Text style={styles.subHeaderText}>Here are your activities</Text>
         <ActivitiesList activities={this.props.activities}
-                        removeActivity={this.props.removeActivity}/>
+                        removeActivity={this.props.removeActivity}
+                        onSelect={this._openActivity}
+        />
       </View>
     )
   }
@@ -36,6 +44,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   fetchActivities: activityActions.fetch,
+  selectActivity: activityActions.select,
   removeActivity: activityActions.deleteEntity
 };
 

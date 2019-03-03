@@ -3,13 +3,15 @@ import * as fromNavigation from '../../navigation/reducers/navigation.reducer';
 import * as navigation from '../../navigation/actions/navigation.action';
 import React, {Component} from 'react'
 import {StyleSheet, Text, View} from 'react-native';
-import HeaderWithSubmit from '../../common/components/header-with-submit';
+import CommonHeader from '../../common/components/common-header';
 import {change, Field, getFormValues, reduxForm, submit} from "redux-form";
 import {connect} from 'react-redux';
 import Modal from 'react-native-modal';
 import {renderDatePicker, renderInputField, renderPickerModal} from "../../common/form/input-field";
-import ActivityKindModal from "./activity-kind-modal";
+import ActivityKindModal from "../components/activity-kind-modal";
 import {withNavigation} from "react-navigation";
+import * as fromActivities from "../selectors/activity.selector";
+import {titleCase} from "../../common/helpers/formatting.helper";
 
 const activityKinds = [
   {id: '1', name: 'Run'},
@@ -33,6 +35,10 @@ class ActivityBuilder extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.removeSelected()
+  }
+
   _selectActivityKind = value => {
     const {changeForm} = this.props;
     changeForm('activity', 'kind', value);
@@ -40,18 +46,19 @@ class ActivityBuilder extends Component {
   };
 
   _submitHandler = () => {
-    const {createActivity, activitiesFormValues} = this.props;
-    createActivity(activitiesFormValues);
+    const {createActivity, activitiesFormValues, initialValues: {id}} = this.props;
+    return id ? updateActivity(activitiesFormValues) : createActivity(activitiesFormValues);
   };
 
   render() {
-    const {activitiesFormValues} = this.props;
+    const {activitiesFormValues, initialValues} = this.props;
     const activityKind = activitiesFormValues ? activitiesFormValues.kind : null;
+
     return (
       <View style={styles.container}>
-        <HeaderWithSubmit onSubmit={() => this._submitHandler()}/>
+        <CommonHeader onSubmit={() => this._submitHandler()} withSubmit={true}/>
         <View style={styles.formContainer}>
-          <Text style={styles.headerText}>Add Activity</Text>
+          <Text style={styles.headerText}>{initialValues ? 'Edit Activity' : 'Add Activity'}</Text>
           <Field
             name="title"
             autoCapitalize="sentences"
@@ -63,6 +70,7 @@ class ActivityBuilder extends Component {
             autoCapitalize="sentences"
             component={renderPickerModal}
             placeholder="Kind"
+            format={(value) => titleCase(value)}
             onPress={() => this.setState({isVisible: true})}
           />
           <Field
@@ -99,18 +107,21 @@ class ActivityBuilder extends Component {
 }
 
 const mapStateToProps = state => ({
+  initialValues: fromActivities.getSelectedEntity(state),
   activitiesFormValues: getFormValues('activity')(state),
   navigateBack: fromNavigation.getNavigateBack(state)
 });
 
 const mapDispatchToProps = {
   createActivity: activity.createActivity,
+  removeSelected: activity.removeSelected,
+  updateActivity: activity.updateActivity,
   submitForm: submit,
   changeForm: change,
   navigationBackSwitch: navigation.navigateBackSwitch
 };
 
-const connectedActivityBuilder = connect(mapStateToProps, mapDispatchToProps)(reduxForm({form: 'activity'})(ActivityBuilder));
+const connectedActivityBuilder = connect(mapStateToProps, mapDispatchToProps)(reduxForm({form: 'activity', enableReinitialize: true})(ActivityBuilder));
 export default withNavigation(connectedActivityBuilder);
 
 const styles = StyleSheet.create({
