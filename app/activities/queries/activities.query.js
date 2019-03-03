@@ -8,6 +8,22 @@ export const createActivityQuery = () => (
       title
       status
       scheduledDate
+      description
+    }
+  }`
+);
+
+export const updateActivityQuery = () => (
+  `mutation($params: CreateActivityInput) {
+    createActivity(params: $params) {
+      id
+      createdAt
+      duration
+      kind
+      title
+      status
+      scheduledDate
+      description
     }
   }`
 );
@@ -34,6 +50,7 @@ export const fetchActivityQuery = () => (
             scheduledDate
             duration
             createdAt
+            description
           }
         }
       }

@@ -1,7 +1,8 @@
 import React from 'react';
 import {createStackNavigator} from 'react-navigation';
 import ActivitiesPage from "../../activities/screens/activities-page";
-import ActivityBuilder from "../../activities/components/activity-builder";
+import ActivityBuilder from "../../activities/screens/activity-builder";
+import Activity from "../../activities/screens/activity";
 
 export const ActivitiesStack = createStackNavigator({
   Activities: {
@@ -9,6 +10,9 @@ export const ActivitiesStack = createStackNavigator({
   },
   ActivityBuilder: {
     screen: ActivityBuilder
+  },
+  Activity: {
+    screen: Activity
   }
 }, {
   headerMode: 'none',

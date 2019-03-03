@@ -8,6 +8,8 @@ export const ADD_ENTITY = "[ACTIVITY] Add Entity";
 export const ADD_ENTITIES = "[ACTIVITY] Add Entities";
 export const DELETE_ENTITY = "[ACTIVITY] Delete Entity";
 export const REMOVE_ENTITY = "[ACTIVITY] Remove Entity";
+export const SELECT = "[ACTIVITY] Select Entity";
+export const REMOVE_SELECTED = "[ACTIVITY] Remove Selected Entity";
 
 // Actions
 
@@ -26,9 +28,38 @@ export const removeEntity = payload => ({
   payload
 });
 
+export const select = payload => ({
+  type: SELECT,
+  payload,
+});
+
+export const removeSelected = () => ({
+  type: REMOVE_SELECTED,
+});
+
 // Epics - equivalent
 
 export const createActivity = payload => {
+  return dispatch => {
+    // dispatch(startLoading());
+    axios.post(baseUrl, {
+      query: createActivityQuery(),
+      variables: JSON.stringify({params: payload}),
+    })
+      .then(response => {
+        const {createActivity} = response.data.data;
+        dispatch(addEntity(createActivity));
+        dispatch(navigation.navigateBackSwitch())
+        // dispatch(stopLoading());
+      })
+      .catch(error => {
+        console.log('Error: ', error);
+        // dispatch(stopLoading())
+      })
+  };
+};
+
+export const updateActivity = payload => {
   return dispatch => {
     // dispatch(startLoading());
     axios.post(baseUrl, {

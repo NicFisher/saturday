@@ -3,11 +3,12 @@ import {View, TextInput, Text, StyleSheet, TouchableOpacity} from 'react-native'
 import DatePicker from "react-native-datepicker";
 
 export const renderInputField = (props) => {
-  const {autoCapitalize, multiline, secureTextEntry, placeholder, input: {onChange, onBlur}} = props;
+  const {autoCapitalize, multiline, secureTextEntry, placeholder, input: {onChange, onBlur, value}} = props;
 
   return (
     <View style={styles.inputContainer}>
       <TextInput style={styles.input}
+                 value={value}
                  onChange={onChange}
                  multiline={multiline || false}
                  placeholderTextColor="#aaa"
