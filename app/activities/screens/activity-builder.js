@@ -46,8 +46,8 @@ class ActivityBuilder extends Component {
   };
 
   _submitHandler = () => {
-    const {createActivity, updateActivity, activitiesFormValues, initialValues: {id}} = this.props;
-    return id ? updateActivity(activitiesFormValues) : createActivity(activitiesFormValues);
+    const {createActivity, updateActivity, activitiesFormValues, initialValues} = this.props;
+    return initialValues && initialValues.id ? updateActivity(activitiesFormValues) : createActivity(activitiesFormValues);
   };
 
   render() {
