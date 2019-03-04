@@ -14,8 +14,8 @@ export const createActivityQuery = () => (
 );
 
 export const updateActivityQuery = () => (
-  `mutation($params: CreateActivityInput) {
-    createActivity(params: $params) {
+  `mutation($params: UpdateActivityInput) {
+    updateActivity(params: $params) {
       id
       createdAt
       duration

@@ -46,8 +46,8 @@ class ActivityBuilder extends Component {
   };
 
   _submitHandler = () => {
-    const {createActivity, activitiesFormValues, initialValues: {id}} = this.props;
-    return id ? updateActivity(activitiesFormValues) : createActivity(activitiesFormValues);
+    const {createActivity, updateActivity, activitiesFormValues, initialValues} = this.props;
+    return initialValues && initialValues.id ? updateActivity(activitiesFormValues) : createActivity(activitiesFormValues);
   };
 
   render() {
@@ -107,7 +107,7 @@ class ActivityBuilder extends Component {
 }
 
 const mapStateToProps = state => ({
-  initialValues: fromActivities.getSelectedEntity(state),
+  initialValues: fromActivities.getFormValues(state),
   activitiesFormValues: getFormValues('activity')(state),
   navigateBack: fromNavigation.getNavigateBack(state)
 });

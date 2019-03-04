@@ -1,5 +1,6 @@
 import * as activities from '../actions/activity.action';
 import {Map} from 'immutable';
+import _ from 'lodash';
 
 const initialState = {
   entities: Map(),
@@ -35,9 +36,5 @@ export const getSelectedEntityId = state => state.selectedEntityId;
 
 export const getFormValues = state => {
   if (!state) return;
-  const {kind, status, title, scheduledDate, duration, createdAt, description} = state;
-  return {title, kind, status, scheduledDate, duration, createdAt, description}
+  return  _.omit(state, 'createdAt');
 };
-
-
-

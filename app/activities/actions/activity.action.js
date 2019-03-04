@@ -1,7 +1,12 @@
 import * as navigation from "../../navigation/actions/navigation.action";
 import axios from "axios";
 import {baseUrl} from "../../axios/helper";
-import {createActivityQuery, deleteActivityQuery, fetchActivityQuery} from "../queries/activities.query";
+import {
+  createActivityQuery,
+  deleteActivityQuery,
+  fetchActivityQuery,
+  updateActivityQuery
+} from "../queries/activities.query";
 import {mapNodesFromJson} from "../../common/mappers";
 
 export const ADD_ENTITY = "[ACTIVITY] Add Entity";
@@ -63,12 +68,12 @@ export const updateActivity = payload => {
   return dispatch => {
     // dispatch(startLoading());
     axios.post(baseUrl, {
-      query: createActivityQuery(),
+      query: updateActivityQuery(),
       variables: JSON.stringify({params: payload}),
     })
       .then(response => {
-        const {createActivity} = response.data.data;
-        dispatch(addEntity(createActivity));
+        const {updateActivity} = response.data.data;
+        dispatch(addEntity(updateActivity));
         dispatch(navigation.navigateBackSwitch())
         // dispatch(stopLoading());
       })
