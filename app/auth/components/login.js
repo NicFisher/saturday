@@ -1,4 +1,4 @@
-import * as auth from '../actions/auth.action';
+import * as authThunks from '../thunks/auth.thunk';
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {Field, getFormValues, reduxForm, submit, isValid} from "redux-form";
@@ -47,7 +47,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  login: auth.login,
+  login: authThunks.login,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({form: 'login'})(Login));

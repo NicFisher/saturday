@@ -1,6 +1,7 @@
 import * as fromActivities from '../reducers/activity.reducer';
 import * as fromUser from '../../user/reducers/user.reducer';
 import * as activityActions from '../actions/activity.action';
+import * as activityThunks from '../thunks/activity.thunk';
 import React, {Component} from "react";
 import {connect} from 'react-redux';
 import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
@@ -43,9 +44,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  fetchActivities: activityActions.fetch,
+  fetchActivities: activityThunks.fetch,
   selectActivity: activityActions.select,
-  removeActivity: activityActions.deleteEntity
+  removeActivity: activityThunks.deleteEntity
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActivitiesPage);

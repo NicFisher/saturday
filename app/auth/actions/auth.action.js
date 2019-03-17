@@ -37,27 +37,3 @@ export const updateAuthenticationToken = (payload) => ({
 export const logout = () => ({
   type: LOGOUT
 });
-
-// Epics - equivalent
-
-export const login = (payload) => {
-  return dispatch => {
-    dispatch(startLoading());
-    axios.post(baseUrl, {
-      query: loginQuery(),
-      variables: JSON.stringify({params: payload}),
-    })
-      .then(response => {
-        const {authenticationToken} = response.data.data.createAuthToken;
-        axios.defaults.headers.common['Authentication'] = authenticationToken;
-        dispatch(updateAuthenticationToken(authenticationToken));
-        dispatch(user.load());
-        dispatch(stopLoading());
-        dispatch(authenticated());
-      })
-      .catch(() => {
-        loginAlert();
-        dispatch(stopLoading())
-      })
-  };
-};

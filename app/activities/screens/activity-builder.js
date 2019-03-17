@@ -1,4 +1,5 @@
-import * as activity from '../actions/activity.action'
+import * as activityActions from '../actions/activity.action'
+import * as activityThunks from '../thunks/activity.thunk'
 import * as fromNavigation from '../../navigation/reducers/navigation.reducer';
 import * as navigation from '../../navigation/actions/navigation.action';
 import React, {Component} from 'react'
@@ -113,9 +114,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  createActivity: activity.createActivity,
-  removeSelected: activity.removeSelected,
-  updateActivity: activity.updateActivity,
+  createActivity: activityThunks.createActivity,
+  removeSelected: activityActions.removeSelected,
+  updateActivity: activityThunks.updateActivity,
   submitForm: submit,
   changeForm: change,
   navigationBackSwitch: navigation.navigateBackSwitch
