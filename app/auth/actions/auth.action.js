@@ -1,9 +1,3 @@
-import * as user from '../../user/actions/user.actions';
-import {loginQuery} from '../queries/auth.queries';
-import axios from 'axios';
-import {baseUrl} from "../../axios/helper";
-import {loginAlert} from "../helpers/login-alert";
-
 export const AUTHENICATED = "[AUTH] Authenticated";
 export const UNAUTHENTICATED = "[AUTH] Unauthenticated";
 export const START_LOADING = "[AUTH] Start Loading";
