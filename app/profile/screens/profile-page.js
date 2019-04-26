@@ -7,6 +7,9 @@ import ImagePicker from "react-native-image-picker";
 import uuidv4 from "uuid/v4";
 import fileExtension from "file-extension";
 import * as mime from "react-native-mime-types";
+import { baseUrl } from '../../axios/helper';
+import axios from "axios";
+import {photoUploader} from "../../common/helpers/photo.helper";
 
 const photoOptions = {
   storageOptions: {
@@ -38,10 +41,38 @@ class ProfilePage extends Component {
       const fileName = `${uuidv4()}.${fileExtension(uri)}`;
       const contentType = mime.lookup(uri) || "application/octet-stream";
 
-      console.log('fileName: ', fileName)
-      console.log('contentType: ', contentType)
-
-
+      console.log('fileName: ', fileName);
+      console.log('contentType: ', contentType);
+      const params = {
+        params: {
+          fileName,
+          contentType,
+          resourcePath: "users"
+        }
+      };
+      axios
+        .post(baseUrl, {
+          query: `
+          mutation($params: CreateSignedUrlInput) {
+            createSignedUrl(params: $params) {
+            }
+          }`,
+          variables: JSON.stringify(params)
+        })
+        .then(data => {
+          const url = data.data.data.createSignedUrl;
+          photoUploader(
+            url,
+            uri,
+            fileName,
+            contentType,
+          );
+        })
+        .catch(() => {
+          // addPhoto({ photo: existingPhoto });
+          // errorResponse("Unable to upload image");
+        });
+        
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
     
@@ -63,6 +94,40 @@ class ProfilePage extends Component {
       console.log('fileName: ', fileName)
       console.log('contentType: ', contentType)
 
+
+
+      const params = {
+        params: {
+          fileName,
+          contentType,
+          resourcePath: "users"
+        }
+      };
+      axios
+        .post(baseUrl, {
+          query: `
+      mutation ($params: CreateSignedUrlInput!) {
+        createSignedUrl(params: $params) {}
+      }`,
+          variables: JSON.stringify(params)
+        })
+        .then(data => {
+          const url = data.data.data.createSignedUrl;
+          photoUploader(
+            url,
+            uri,
+            fileName,
+            contentType,
+            // existingPhoto,
+            // addPhoto,
+            // updatePhoto,
+            // errorResponse
+          );
+        })
+        .catch(() => {
+          addPhoto({ photo: existingPhoto });
+          errorResponse("Unable to upload image");
+        });
 
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
@@ -101,7 +166,7 @@ class ProfilePage extends Component {
 }
 
 const mapDispatchToProps = ({
-  logout: auth.logout
+  logout: auth.logout,
 });
 
 export default connect(null, mapDispatchToProps)(ProfilePage);

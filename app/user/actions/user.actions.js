@@ -50,6 +50,24 @@ export const create = (payload) => {
   }
 };
 
+// export const updatePhoto = (payload) => {
+//   return dispatch => {
+//     dispatch(startLoading());
+//     axios.post(baseUrl, {
+//       query: createUserQuery(),
+//       variables: JSON.stringify({params: payload})
+//     })
+//       .then(() => {
+//         const loginDetails = _.omit(payload, 'firstName', 'lastName');
+//         dispatch(auth.login(loginDetails));
+//         dispatch(stopLoading());
+//       })
+//       .catch(() => {
+//         dispatch(stopLoading())
+//       })
+//   }
+// };
+
 export const startLoading = () => ({
   type: START_LOADING,
 });
