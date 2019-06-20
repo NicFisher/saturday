@@ -1,7 +1,7 @@
 import axios from "axios";
 import {baseUrl} from "../../axios/helper";
 import {loginQuery} from "../queries/auth.queries";
-import * as user from "../../user/actions/user.actions";
+import * as userThunks from "../../user/thunks/user.thunk";
 import {loginAlert} from "../helpers/login-alert";
 import {authenticated, startLoading, stopLoading, updateAuthenticationToken} from "../actions/auth.action";
 
@@ -16,7 +16,7 @@ export const login = (payload) => {
         const {authenticationToken} = response.data.data.createAuthToken;
         axios.defaults.headers.common['Authentication'] = authenticationToken;
         dispatch(updateAuthenticationToken(authenticationToken));
-        dispatch(user.load());
+        dispatch(userThunks.load());
         dispatch(stopLoading());
         dispatch(authenticated());
       })

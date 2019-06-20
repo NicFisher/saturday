@@ -50,7 +50,7 @@ export const updateActivity = payload => {
   };
 };
 
-export const deleteEntity = payload => {
+export const deleteActivity = payload => {
   return dispatch => {
     // dispatch(startLoading());
     axios.post(baseUrl, {
