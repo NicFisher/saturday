@@ -1,4 +1,4 @@
-import * as user from '../../user/actions/user.actions';
+import * as userThunks from '../../user/thunks/user.thunk';
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {Field, getFormValues, isValid, reduxForm} from "redux-form";
@@ -65,7 +65,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  register: user.create,
+  register: userThunks.create,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({form: 'register', touchOnBlur: true})(Register));

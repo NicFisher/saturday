@@ -3,8 +3,6 @@ export const photoUploader = (
   fileUri,
   fileName,
   contentType,
-  existingPhoto,
-  addPhoto,
   updatePhoto,
   errorResponse
 ) => {
@@ -15,9 +13,7 @@ export const photoUploader = (
       if (xhr.status === 200) {
         // Once it's uploaded, dispatch the signed url with all extra params removed
         const sanitized_url = url.substr(0, url.indexOf('?'));
-        debugger;
-        console.log('sanitized_url: ', sanitized_url);
-        updatePhoto({ photo: sanitized_url });
+        updatePhoto(sanitized_url);
       } else {
         console.log('Error')
         // addPhoto({ photo: existingPhoto });
