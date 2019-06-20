@@ -1,9 +1,9 @@
 import * as fromAuth from '../../auth/reducers/auth.reducer';
 import React, {Component} from 'react';
-import {ActivityIndicator} from 'react-native';
 import {createRootNavigator} from "../../navigation/common/tab-navigator";
 import {connect} from 'react-redux';
 import axios from "axios";
+import LoadingView from "./loading-view";
 
 class AppRoot extends Component {
   constructor(props){
@@ -24,7 +24,7 @@ class AppRoot extends Component {
     if(this.state.showLayout) {
       return <Layout />
     }
-    return <ActivityIndicator/>
+    return <LoadingView/>
   }
 }
 

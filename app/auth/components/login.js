@@ -33,7 +33,7 @@ class Login extends Component {
           iconName="ios-lock"
         />
         <TouchableOpacity style={styles.registerButton} onPress={() => this._submitHandler()}>
-          <Text style={{color: '#fff'}}>Login</Text>
+          <Text style={styles.registerButtonText}>Login</Text>
         </TouchableOpacity>
       </View>
     )
@@ -64,5 +64,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10
+  },
+  registerButtonText: {
+    color: '#fff'
   }
 });

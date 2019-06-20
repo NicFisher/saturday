@@ -28,7 +28,7 @@ export const TabNavigation = createBottomTabNavigator({
   }
 }, {
     initialRouteName: 'Activities',
-    navigationOptions: ({navigation}) => {
+    navigationOptions: () => {
       return {
         tabBarOptions: {
           activeTintColor: '#252C3F',

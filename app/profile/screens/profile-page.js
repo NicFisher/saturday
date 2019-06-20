@@ -81,8 +81,9 @@ class ProfilePage extends Component {
           {photo ? <Image source={{uri: photo}} style={styles.avatar} /> : <View style={styles.defaultAvatar} />}
         </TouchableOpacity>
         <Text style={styles.uploadText}>Upload Image</Text>
+        <Text style={styles.subtitle}>More to come...</Text>
         <TouchableOpacity onPress={() => this.props.logout()}>
-          <Text>Logout</Text>
+          <Text style={styles.logoutText}>Click here to logout</Text>
         </TouchableOpacity>
         <ActionSheet
           ref={o => (this.ActionSheet = o)}
@@ -116,8 +117,15 @@ const styles = StyleSheet.create({
     paddingTop: 80,
     alignItems: 'center',
   },
+  subtitle: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: '#252C3F',
+    marginBottom: 80
+  },
   uploadText: {
-    marginBottom: 60
+    color: '#252C3F',
+    marginBottom: 80
   },
   avatar: {
     height: 120,
@@ -132,4 +140,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 60
   },
+  logoutText: {
+    color: '#252C3F'
+  }
 });
