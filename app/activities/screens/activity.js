@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import {ActivityIndicator, View, Text, StyleSheet} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import * as fromActivities from '../selectors/activity.selector';
 import CommonHeader from "../../common/components/common-header";
-import {Field, reduxForm, isDirty} from "redux-form";
+import {Field, isDirty, reduxForm} from "redux-form";
 import {renderDatePicker, renderInputField, renderPickerModal} from "../../common/form/input-field";
 import {connect} from 'react-redux';
-import {Form} from "native-base";
 import {titleCase} from "../../common/helpers/formatting.helper";
 import Modal from "react-native-modal";
 import ActivityKindModal from "../components/activity-kind-modal";
@@ -19,9 +18,6 @@ class Activity extends Component {
   }
 
   render() {
-    // const {activity} = this.props;
-    // const {id, createdAt, duration, kind, scheduledDate, status, title} = activity;
-
     const {navigation, isDirty} = this.props;
     return(
       <View style={styles.container}>
