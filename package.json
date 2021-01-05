@@ -18,7 +18,7 @@
     "preset": "react-native"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "file-extension": "^4.0.5",
     "immutable": "^3.8.2",
     "lodash": "^4.17.11",
