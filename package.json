@@ -21,7 +21,7 @@
     "axios": "^0.18.0",
     "file-extension": "^4.0.5",
     "immutable": "^3.8.2",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "moment": "^2.23.0",
     "native-base": "^2.7.2",
     "prop-types": "^15.6.2",
